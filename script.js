@@ -1,8 +1,5 @@
 const myBtn = document.querySelector('.myBtn')
 
-// Call the function when the page loads
-window.onload = fetchWeather;
-
 function getWeather() {
     const apiKey = 'a694161d4b6b2537ed28151a2e82993d';
     const city = document.getElementById('city').value;
