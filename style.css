@@ -1,3 +1,8 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
 body {
     background: #8C52FF;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -7,6 +12,44 @@ body {
     height: 100vh;
     margin: 0;
     overflow: hidden;
+}
+
+#showcase {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+}
+
+#showcase h1 {
+    font-size: 50px;
+}
+
+#showcase p {
+    font-size: 20px;
+}
+
+#showcase .button {
+    background: #debff4;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 20px;
+    width: 100px;
+    font-size: 20px;
+    text-decoration: none;
+    text-align: center;
+}
+
+.weather-display div {
+    display: flex;
+    flex-direction: column;
+    margin: 0 20px;
+    font-size: 24px;
+    justify-content: center;
 }
 
 #weather-container {
@@ -124,13 +167,3 @@ button:hover {
 #favorite-btn:hover, #change-favorite-btn:hover {
     background: #8b48d7;
 }
-
-/* Ensure the favorite city section doesn't push content out of view */
-/* #favorite-weather {
-    background: rgba(255, 255, 255, 0.3);
-    padding: 20px;
-    border-radius: 15px;
-    text-align: center;
-    margin-top: 20px;
-    margin-top: 20px;
-} */

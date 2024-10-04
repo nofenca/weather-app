@@ -1,21 +1,11 @@
 const myBtn = document.querySelector('.myBtn')
 
-// if (navigator.geolocation) {
-//     navigator.geolocation.getCurrentPosition(showPosition);
-// } else {
-//     document.getElementById("demo").innerHTML =
-//         "Geolocation is not supported by this browser.";
-// }
-
-// function showPosition(position) {
-//     document.getElementById("demo").innerHTML =
-//         "Latitude: " + position.coords.latitude +
-//         "Longitude: " + position.coords.longitude;
-// }
+// Call the function when the page loads
+window.onload = fetchWeather;
 
 function getWeather() {
     const apiKey = 'a694161d4b6b2537ed28151a2e82993d';
-const city = document.getElementById('city').value;
+    const city = document.getElementById('city').value;
     if (!city) {
         alert('Please enter a city')
         return;
@@ -116,11 +106,38 @@ city.addEventListener("keypress", function (event) {
     }
 })
 
+function fetchWeatherForFavorite(cityName) {
+    const apiKey = 'a694161d4b6b2537ed28151a2e82993d';  // Din API-nyckel
+    const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`;
+    const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKey}`;
+
+    fetch(currentWeatherUrl)
+        .then(res => res.json())
+        .then(data => {
+            displayWeather(data);  // Återanvänd display-funktionen
+        })
+        .catch(error => {
+            console.error('Error fetching current weather data:', error);
+            alert('Error fetching current weather data. Please try again.');
+        });
+
+    fetch(forecastUrl)
+        .then(res => res.json())
+        .then(data => {
+            displayHourlyForecast(data.list);  // Återanvänd display-funktionen för prognos
+        })
+        .catch(error => {
+            console.error('Error fetching hourly forecast data:', error);
+            alert('Error fetching hourly forecast data. Please try again.');
+        });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const favoriteBtn = document.getElementById('favorite-btn');
     const changeFavoriteBtn = document.getElementById('change-favorite-btn');
     const favoriteWeatherDiv = document.getElementById('favorite-weather');
     const favoriteCityEl = document.getElementById('favorite-city');
+    const favoriteCityLink = document.getElementById('favorite-city-link');
     const favoriteCityInput = document.getElementById('favorite-city-input');
 
     // Function to save favorite city to localStorage
@@ -136,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (favoriteCity) {
             favoriteWeatherDiv.style.display = 'block';
             favoriteCityEl.textContent = favoriteCity;
-            // Fetch weather for the favorite city and display it
+            favoriteCityLink.href = "#";
             fetchWeatherForFavorite(favoriteCity);
         } else {
             favoriteWeatherDiv.style.display = 'none';
@@ -155,6 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const cityName = favoriteCityInput.value;
         if (cityName) {
             saveFavoriteCity(cityName);
+            fetchWeatherForFavorite(cityName);
         } else {
             alert("Please enter a city name to save it as your favorite.");
         }

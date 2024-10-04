@@ -30,7 +30,8 @@
         <!-- Display favorite city weather -->
         <div id="favorite-weather" style="display:none;">
           <h3>Your Favorite City Weather</h3>
-          <p id="favorite-city"></p>
+          <a href="#" id="favorite-city-link" onclick="fetchWeatherForFavorite(localStorage.getItem('favoriteCity'))";><span id="favorite-city"></span></a>
+          <!-- <p id="favorite-city"></p> -->
           <button id="change-favorite-btn">Change Favorite</button>
         </div>
      </div>
